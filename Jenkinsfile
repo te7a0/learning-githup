@@ -1,33 +1,37 @@
 pipeline {
-  agent any
-   tools {
+    agent any
+
+    // نحدد الأدوات اللي أضفناها في Jenkins
+    tools {
         jdk 'java-3'
         maven 'maven-3'
     }
-  stages {
-    stage('clean ') {
-      steps {
-        cleanWs()
-      }
-    }
-    stage('checkout scm') {
-      steps{
-        git branch: 'main',
-            url: 'https://github.com/te7a0/ci-cd-proj.-.git'
-      }
-     }
-    stage('Maven Test') {
+
+    stages {
+
+        stage('Clean Workspace') {
             steps {
-                // يشغل اختبارات Maven
+                cleanWs()
+            }
+        }
+
+        stage('Checkout SCM') {
+            steps {
+                git branch: 'main',
+                    url: 'https://github.com/te7a0/ci-cd-proj.-.git'
+            }
+        }
+
+        stage('Maven Test') {
+            steps {
                 sh 'mvn test'
             }
         }
 
         stage('Maven Install') {
             steps {
-                // يبني المشروع ويضيف artifact للـ local repo
                 sh 'mvn install'
             }
         }
-  }
-}
+
+    }
