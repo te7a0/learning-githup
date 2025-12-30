@@ -10,8 +10,7 @@ pipeline {
       steps{
         git branch: 'main',
             url: 'https://github.com/te7a0/ci-cd-proj.-.git'
-    }
-
+      }
+     }
   }
-}
 }
